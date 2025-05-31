@@ -1,11 +1,11 @@
 import { render, screen } from '@testing-library/react'
 import '@testing-library/jest-dom'
-import ListComponent from '../components/ListComponent'
+import App from "../App";
 
-test('the list renders', () => {
-  render(<ListComponent />)
+test("the list renders", () => {
+  render(<App />);
 
-  const element = screen.getByText('Todo List');
+  const element = screen.getByText("Todo List");
 
   expect(element).toBeInTheDocument();
-})
+});
