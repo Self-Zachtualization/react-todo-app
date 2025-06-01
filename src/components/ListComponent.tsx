@@ -4,12 +4,17 @@ import TaskComponent from "./TaskComponent";
 
 export default function ListComponent() {
   const taskList = useGetTasks()?.map((task: Task) => (
-    <TaskComponent id={task.id} title={task.title} key={task.id} />
+    <TaskComponent
+      key={task.id}
+      id={task.id}
+      title={task.title}
+      completed={task.completed}
+    />
   ));
 
   return (
     <div>
-      <h2>Todo List</h2>
+      <h2>To-Do List</h2>
       <ul role="list" className="todo-list">
         {taskList}
       </ul>

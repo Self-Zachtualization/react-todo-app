@@ -5,7 +5,7 @@ import App from "../App";
 test("the list renders", () => {
   render(<App />);
 
-  const element = screen.getByText("Todo List");
+  const element = screen.getByText("To-Do List");
 
   expect(element).toBeInTheDocument();
 });
