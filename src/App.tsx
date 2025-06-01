@@ -3,46 +3,46 @@ import "./App.css";
 import ListComponent from "./components/ListComponent";
 import type Task from "./models/Task";
 import { TaskContext } from "./services/TaskContext";
+import FilterComponent from "./components/FilterComponent";
+import TaskFormComponent from "./components/TaskFormComponent";
 
 function App() {
   const [tasks, setTasks] = useState<Task[]>([]);
-  const [text, setText] = useState<string>("");
+  const [tab, setTab] = useState("all");
 
-  function handleNewTask(event: SyntheticEvent) {
+  function handleNewTask(event: SyntheticEvent, title: string) {
     event.preventDefault();
-    console.log("event: ", event);
-    if (text) {
+    if (title) {
       const newTask = {
-        title: text,
+        title: title,
         id: String(tasks.length),
         completed: false,
-      };
+      } as Task;
       setTasks([...tasks, newTask]);
-      setText("");
     } else {
       alert('Please enter a task in the "Create new task" field');
     }
   }
 
+  function handleDeletions(newTasks: Task[]) {
+    setTasks(newTasks);
+  }
+
+  function handleTabChange(tab: string) {
+    setTab(tab);
+  }
+
   return (
     <>
       <h1>THE React To-Do App</h1>
-      <div className="add-container">
-        <form>
-          <label htmlFor="add-task">Create new task:</label>
-          <input
-            onChange={(event) => setText(event.target.value)}
-            value={text}
-            type="text"
-            id="add-task"
-          />
-          <button className="addButton" type="submit" onClick={handleNewTask}>
-            Add New Task
-          </button>
-        </form>
-      </div>
+      <TaskFormComponent handleNewTask={handleNewTask} />
+      <FilterComponent handleTabChange={handleTabChange} />
       <TaskContext.Provider value={tasks}>
-        <ListComponent />
+        <ListComponent
+          handleDeletions={handleDeletions}
+          handleEdits={handleDeletions}
+          tab={tab}
+        />
       </TaskContext.Provider>
     </>
   );

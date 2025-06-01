@@ -13,7 +13,7 @@ const testTaskList: Task[] = [
     id: "0",
     completed: true,
   },
-];
+] as Task[];
 
 test("the task renders", () => {
   render(
@@ -22,6 +22,8 @@ test("the task renders", () => {
       id={testTaskList[0].id}
       key={testTaskList[0].id}
       completed={testTaskList[0].completed}
+      listRegisterDeletions={testTaskList[0].listRegisterDeletions}
+      listRegisterEdits={testTaskList[1].listRegisterEdits}
     />
   );
 
